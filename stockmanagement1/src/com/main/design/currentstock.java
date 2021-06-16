@@ -5,6 +5,8 @@
  */
 package com.main.design;
 
+import com.main.u1.Testing;
+import com.main.u1.UpdateStock;
 import com.main.utility.DbConnection;
 import com.main.utility.Mailer;
 import java.awt.Toolkit;
@@ -16,9 +18,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javaConstants.Constants;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +40,12 @@ public class currentstock extends javax.swing.JFrame {
     public currentstock() {
         initComponents();
 
+        Timer timer = new Timer();
+
+        timer.scheduleAtFixedRate(new UpdateStock(), 2000, 30000);
+
     }
+    
     com.mysql.jdbc.Connection con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
 
     HashMap<String, String> map = new HashMap<>();
@@ -504,12 +514,12 @@ public class currentstock extends javax.swing.JFrame {
             ResultSet rs = insert.executeQuery();
 
             while (rs.next()) {
-                    System.out.println("hello here");
-                    txtNameOfItem.setText(rs.getString("productname"));
-                    txtCost.setText(rs.getString("costprice"));
-                    txtOldquantity.setText(rs.getString("quantity"));
+                System.out.println("hello here");
+                txtNameOfItem.setText(rs.getString("productname"));
+                txtCost.setText(rs.getString("costprice"));
+                txtOldquantity.setText(rs.getString("quantity"));
 
-                }
+            }
             ResultSet result = insert.executeQuery();
             if (result.next() == false) {
                 System.out.println("hello");
@@ -525,9 +535,8 @@ public class currentstock extends javax.swing.JFrame {
                     txtCost.setText(rs1.getString("costprice"));
                 }
 
-            } 
-                
-            
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(currentstock.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -712,4 +721,5 @@ public class currentstock extends javax.swing.JFrame {
         }
 
     }
+
 }

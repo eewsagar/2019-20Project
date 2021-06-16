@@ -22,7 +22,9 @@ public class DBScheduler {
 			ReadPropertiesFile.readConfig();
 			Timer timer = new Timer();
 
-			timer.scheduleAtFixedRate(new Testing(), getTimePrecision(Constants.delay), getTimePrecision(Constants.timetoquery));
+			timer.scheduleAtFixedRate(new Testing(), 
+                                getTimePrecision(Constants.delay), 
+                                getTimePrecision(Constants.timetoquery));
 
 		}
 

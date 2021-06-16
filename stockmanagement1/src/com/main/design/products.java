@@ -37,48 +37,36 @@ public final class products extends javax.swing.JFrame {
     public products() {
         initComponents();
         // productCodeTxt.setVisible(false);
-          loadDatas();
-          supplier_name();
+        loadDatas();
+        supplier_name();
     }
 
-    private void supplier_name()
-    {
-        try{
-        PreparedStatement stmt;
-        com.mysql.jdbc.Connection con;
-        try
-        {
-         
-            con = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
-          
-            stmt = con.prepareStatement("select * from suppliers");
-     ResultSet rs =stmt.executeQuery();
+    private void supplier_name() {
+        try {
+            PreparedStatement stmt;
+            com.mysql.jdbc.Connection con;
+            try {
 
-            
-           System.out.println("after resultset");
-           
-          try{
-            while(rs.next())
-            {
-               // String workername=rs.getString(2);
-                cmbSupllier.addItem(rs.getString(2));
-            
+                con = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
+
+                stmt = con.prepareStatement("select * from suppliers");
+                ResultSet rs = stmt.executeQuery();
+
+                System.out.println("after resultset");
+
+                try {
+                    while (rs.next()) {
+                        // String workername=rs.getString(2);
+                        cmbSupllier.addItem(rs.getString(2));
+
+                    }
+                } catch (SQLException e) {
+
+                }
+            } catch (NullPointerException e) {
             }
-          } catch(SQLException  e)
-        {
-            
-        }
-        }catch(NullPointerException e)
-   {
-   }
-        }
-        
-        
-           
-        
-        catch(SQLException  e)
-        {
-            
+        } catch (SQLException e) {
+
         }
     }
 
@@ -111,7 +99,7 @@ public final class products extends javax.swing.JFrame {
         deleteBttn = new javax.swing.JLabel();
         clearBttn = new javax.swing.JLabel();
         cmbSupllier = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btnAddProduct = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -243,10 +231,10 @@ public final class products extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add item.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add item.png"))); // NOI18N
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddProductActionPerformed(evt);
             }
         });
 
@@ -323,7 +311,7 @@ public final class products extends javax.swing.JFrame {
                         .addGap(106, 106, 106)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -378,7 +366,7 @@ public final class products extends javax.swing.JFrame {
                                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(51, 51, 51)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton2)))
@@ -469,95 +457,86 @@ public final class products extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-DefaultTableModel Df = (DefaultTableModel)table.getModel();
+        DefaultTableModel Df = (DefaultTableModel) table.getModel();
         int selectedIndex = table.getSelectedRow();
         //comboBox .setSelectedItem(Df.getValueAt(selectedIndex, 1).toString());    
-       productNameTxt .setText(Df.getValueAt(selectedIndex, 1).toString());
-       costPriceTxt .setText(Df.getValueAt(selectedIndex, 2).toString());
-      stateTxt  .setText(Df.getValueAt(selectedIndex, 3).toString());
-          
+        productNameTxt.setText(Df.getValueAt(selectedIndex, 1).toString());
+        costPriceTxt.setText(Df.getValueAt(selectedIndex, 2).toString());
+        stateTxt.setText(Df.getValueAt(selectedIndex, 3).toString());
+
     }//GEN-LAST:event_tableMouseClicked
 
-     
+
     private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
 
-             
+
     }//GEN-LAST:event_searchTxtKeyReleased
 
-        
+
     private void refreshBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBttnActionPerformed
 
-       // productCodeTxt.setText("");
+        // productCodeTxt.setText("");
         productNameTxt.setText("");
         costPriceTxt.setText("");
         stateTxt.setText("");
-       
+
     }//GEN-LAST:event_refreshBttnActionPerformed
 
     private void addProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addProductMouseClicked
-      
+
     }//GEN-LAST:event_addProductMouseClicked
 
     private void editBttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBttnMouseClicked
-   
+
     }//GEN-LAST:event_editBttnMouseClicked
- 
- public void loadDatas(){
- int c;
+
+    public void loadDatas() {
+        int c;
 //Connection con;
-try 
-{
-    
-    com.mysql.jdbc.Connection  con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
-     PreparedStatement insert = con1.prepareStatement("select * from products");
-     ResultSet rs =insert.executeQuery();
-     ResultSetMetaData Rss = rs.getMetaData();
-     c = Rss.getColumnCount();
-     DefaultTableModel Df;
-     Df = (DefaultTableModel) table.getModel();
-     Df.setRowCount(0);
+        try {
 
-while(rs.next ())
-{
+            com.mysql.jdbc.Connection con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
+            PreparedStatement insert = con1.prepareStatement("select * from products");
+            ResultSet rs = insert.executeQuery();
+            ResultSetMetaData Rss = rs.getMetaData();
+            c = Rss.getColumnCount();
+            DefaultTableModel Df;
+            Df = (DefaultTableModel) table.getModel();
+            Df.setRowCount(0);
 
-Vector v2 = new Vector();
+            while (rs.next()) {
 
-for(int a=1; a<=c ; a++)
-{
+                Vector v2 = new Vector();
 
-v2.add(rs.getString("pid"));
-v2.add(rs.getString("productname"));
-v2.add(rs.getString("costprice"));
-v2.add(rs.getString("state"));
+                for (int a = 1; a <= c; a++) {
 
-}
-Df.addRow(v2); 
-}
-}
+                    v2.add(rs.getString("pid"));
+                    v2.add(rs.getString("productname"));
+                    v2.add(rs.getString("costprice"));
+                    v2.add(rs.getString("state"));
 
-catch(SQLException ex) {
+                }
+                Df.addRow(v2);
+            }
+        } catch (SQLException ex) {
 
-Logger.getLogger(worker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(worker.class.getName()).log(Level.SEVERE, null, ex);
 
+        }
 
-}
-        
-        
-        
     }//end of method DefaultTableModel
-    
-    
-    
+
+
     private void deleteBttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBttnMouseClicked
-        
+
     }//GEN-LAST:event_deleteBttnMouseClicked
 
     private void clearBttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearBttnMouseClicked
-       
+
         productNameTxt.setText("");
         costPriceTxt.setText("");
         stateTxt.setText("");
-       
+
     }//GEN-LAST:event_clearBttnMouseClicked
 
     private void cmbSupllierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSupllierItemStateChanged
@@ -568,78 +547,77 @@ Logger.getLogger(worker.class.getName()).log(Level.SEVERE, null, ex);
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbSupllierActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         // TODO add your handling code here:
         // Connection con1;
-        try{
-PreparedStatement insert ;
-String name= productNameTxt.getText(); 
-Double cost=  Double.parseDouble(costPriceTxt.getText());
-String state= stateTxt.getText();
-        if (productNameTxt.getText().equals("") || costPriceTxt.getText().equals("") || stateTxt.getText().equals(""))  {
-            JOptionPane.showMessageDialog(null, "Please fill all the fields!");
-        } else {
-           try{
-   com.mysql.jdbc.Connection  con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();    
-                  
-insert=con1.prepareStatement ("INSERT INTO products(productname,costprice,state) VALUES(?,?,?)");
-insert.setString(1,name);
-insert.setDouble(2,cost);
-insert.setString(3,state);
-insert.executeUpdate(); 
+        try {
+            PreparedStatement insert;
+            String name = productNameTxt.getText();
+            Double cost = Double.parseDouble(costPriceTxt.getText());
+            String state = stateTxt.getText();
+            if (productNameTxt.getText().equals("") || costPriceTxt.getText().equals("") || stateTxt.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill all the fields!");
+            } else {
+                try {
+                    com.mysql.jdbc.Connection con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
 
-insert=con1.prepareStatement ("INSERT INTO currentstocks(pid,quantity) VALUES(?,?)");
-insert.setString(1,name);
-insert.setDouble(2,cost);
-insert.setString(3,"");
-insert.executeUpdate(); 
+                    insert = con1.prepareStatement("INSERT INTO products(productname,costprice,state) VALUES(?,?,?)");
+                    insert.setString(1, name);
+                    insert.setDouble(2, cost);
+                    insert.setString(3, state);
+                    insert.executeUpdate();
 
-JOptionPane.showMessageDialog(this,"Record Added.....!!!!!");
-            loadDatas();
+                    insert = con1.prepareStatement("INSERT INTO currentstocks(pid,quantity) VALUES(?,?)");
+                    insert.setString(1, name);
+                    insert.setDouble(2, cost);
+                    insert.setString(3, "");
+                    insert.executeUpdate();
+
+                    JOptionPane.showMessageDialog(this, "Record Added.....!!!!!");
+                    loadDatas();
+                } catch (SQLException | NullPointerException ex) {
+                    Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (NullPointerException ex) {
+            Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
         }
-catch(SQLException  | NullPointerException ex ) {
-Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
-}
-        }        
-  }catch( NullPointerException ex ) {
-Logger.getLogger(products.class.getName()).log(Level.SEVERE, null, ex);
-}     
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-DefaultTableModel Df=(DefaultTableModel)table.getModel();
-            int selectedIndex = table.getSelectedRow();
+        DefaultTableModel Df = (DefaultTableModel) table.getModel();
+        int selectedIndex = table.getSelectedRow();
         Connection con1;
-PreparedStatement insert ;
-       String name= productNameTxt.getText();
-       String price= costPriceTxt.getText();
-       String state=stateTxt.getText();
-       int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString ());
-       con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
-          if (table.getSelectedRow() < 0) {
+        PreparedStatement insert;
+        String name = productNameTxt.getText();
+        String price = costPriceTxt.getText();
+        String state = stateTxt.getText();
+        int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
+        con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
+        if (table.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Select a table data first!");
         } else {
-            if (productNameTxt.getText().equals("") || costPriceTxt.getText().equals("") ||   stateTxt.getText().equals("")) {
+            if (productNameTxt.getText().equals("") || costPriceTxt.getText().equals("") || stateTxt.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields!");
             } else {
-                try{
-              insert = con1.prepareStatement("UPDATE products SET productname=?,costprice=?,state=? WHERE pid=?");
-insert.setString(1, name);
-insert.setString (2, price);
-insert.setString(3, state);
-insert.setInt (4, id);
-insert.executeUpdate();   
-   JOptionPane.showMessageDialog(null, "Updated Successfully");
+                try {
+                    insert = con1.prepareStatement("UPDATE products SET productname=?,costprice=?,state=? WHERE pid=?");
+                    insert.setString(1, name);
+                    insert.setString(2, price);
+                    insert.setString(3, state);
+                    insert.setInt(4, id);
+                    insert.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Updated Successfully");
+                } catch (HeadlessException | SQLException e) {
                 }
-               catch (HeadlessException | SQLException e) {
-            }   
             }
             loadDatas();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
- Connection con ;
-    PreparedStatement pstmt ;
+    Connection con;
+    PreparedStatement pstmt;
+
     /*public void deleteProductDAO(int value){
         try{
             String query="DELETE FROM products where pid=?";
@@ -652,15 +630,15 @@ insert.executeUpdate();
         }
         deleteStock();
     }*/
-    
-    public void deleteStock(){
-         try{
-             Statement stmt = null;
-             String q="DELETE FROM currentstocks WHERE pid ";
-             
-             //stmt.executeUpdate(q);
-             stmt.executeUpdate(q);
-         }catch(SQLException e){
+
+    public void deleteStock() {
+        try {
+            Statement stmt = null;
+            String q = "DELETE FROM currentstocks WHERE pid ";
+
+            //stmt.executeUpdate(q);
+            stmt.executeUpdate(q);
+        } catch (SQLException e) {
         }
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -668,59 +646,56 @@ insert.executeUpdate();
         if (table.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(null, "Select a table data first!");
         } else {
-            DefaultTableModel Df = (DefaultTableModel)table.getModel();
-        int selectedIndex = table.getSelectedRow();
-        java.sql.Connection con1;
-        PreparedStatement insert;
-        try {
+            DefaultTableModel Df = (DefaultTableModel) table.getModel();
+            int selectedIndex = table.getSelectedRow();
+            java.sql.Connection con1;
+            PreparedStatement insert;
+            try {
 
-            int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
+                int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
 
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to Delete the Record", "warning", JOptionPane.YES_NO_OPTION);
-            if (dialogResult == JOptionPane.YES_OPTION)
-            {
-                con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
-                insert = con1.prepareStatement("delete from products where pid=?");
-                insert.setInt(1,id);
-                insert.executeUpdate();
-                JOptionPane.showMessageDialog(this,"Record Update");
-                loadDatas();
-                productNameTxt.setText("");
-                costPriceTxt.setText("");
-                stateTxt.setText("");                        
-                productNameTxt .requestFocus();
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to Delete the Record", "warning", JOptionPane.YES_NO_OPTION);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    con1 = (com.mysql.jdbc.Connection) new DbConnection().getConnection();
+                    insert = con1.prepareStatement("delete from products where pid=?");
+                    insert.setInt(1, id);
+                    insert.executeUpdate();
+                    JOptionPane.showMessageDialog(this, "Record Update");
+                    loadDatas();
+                    productNameTxt.setText("");
+                    costPriceTxt.setText("");
+                    stateTxt.setText("");
+                    productNameTxt.requestFocus();
+                }
+            } catch (SQLException ex) {
+
+                Logger.getLogger(worker.class.getName()).log(Level.SEVERE, null, ex);
+
             }
-        }
+            deleteStock();
 
-        catch(SQLException ex) {
-
-            Logger.getLogger(worker.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-deleteStock();
-           
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         productNameTxt.setText("");
-                costPriceTxt.setText("");
-                stateTxt.setText("");     
+        costPriceTxt.setText("");
+        stateTxt.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void costPriceTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_costPriceTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_costPriceTxtActionPerformed
-public void close(){
-        WindowEvent winClosingEvent=new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+    public void close() {
+        WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
-     }
+    }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-  new menu().setVisible(true);
-  close();
+        new menu().setVisible(true);
+        close();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -729,56 +704,44 @@ public void close(){
 
     private void productNameTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_productNameTxtKeyPressed
         // TODO add your handling code here:
-         char c=evt.getKeyChar();
-        if(Character.isLetter(c)||Character.isWhitespace(c) )
-        {
-           productNameTxt.setEditable(true);
-            
-    
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) || Character.isWhitespace(c)) {
+            productNameTxt.setEditable(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, " Please Enter valid product name.......");
+
         }
-        else
-        {
-        JOptionPane.showMessageDialog(null," Please Enter valid product name.......");
-            
-        }
-        
+
     }//GEN-LAST:event_productNameTxtKeyPressed
 
     private void costPriceTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costPriceTxtKeyPressed
         // TODO add your handling code here:
-         String telephone=costPriceTxt.getText();
-        int length=telephone.length();
-        char c=evt.getKeyChar();
-        if (Character.isLetter(c))
-        {
-            JOptionPane.showMessageDialog(null,"Please enter numbers only");
-        }
-        else{
-        if(evt.getKeyChar()>='0'&&evt.getKeyChar()<='9' )
-        {
-            if(length<10)
-            { 
-              costPriceTxt.setEditable(true);
-            }else{
-              costPriceTxt.setEditable(false);
-            }  
-        }
+        String telephone = costPriceTxt.getText();
+        int length = telephone.length();
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c)) {
+            JOptionPane.showMessageDialog(null, "Please enter numbers only");
+        } else {
+            if (evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
+                if (length < 10) {
+                    costPriceTxt.setEditable(true);
+                } else {
+                    costPriceTxt.setEditable(false);
+                }
+            }
         }
     }//GEN-LAST:event_costPriceTxtKeyPressed
 
     private void stateTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stateTxtKeyPressed
         // TODO add your handling code here:
-        char c=evt.getKeyChar();
-        if(Character.isLetter(c)||Character.isWhitespace(c) )
-        {
-           stateTxt.setEditable(true);
-            
-    
-        }
-        else
-        {
-        JOptionPane.showMessageDialog(null," Please Enter valid product name.......");
-            
+        char c = evt.getKeyChar();
+        if (Character.isLetter(c) || Character.isWhitespace(c)) {
+            stateTxt.setEditable(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, " Please Enter valid product name.......");
+
         }
     }//GEN-LAST:event_stateTxtKeyPressed
 
@@ -823,6 +786,7 @@ public void close(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addProduct;
+    private javax.swing.JButton btnAddProduct;
     private javax.swing.JLabel clearBttn;
     private javax.swing.JComboBox cmbSupllier;
     private javax.swing.JLabel costPriceLab;
@@ -833,7 +797,6 @@ public void close(){
     private javax.swing.JTextField costPriceTxt;
     private javax.swing.JLabel deleteBttn;
     private javax.swing.JLabel editBttn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

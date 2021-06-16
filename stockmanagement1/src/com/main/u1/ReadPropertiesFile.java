@@ -18,14 +18,14 @@ public class ReadPropertiesFile {
 		{
 
 		    Properties pro = new Properties();
-		    String path = System.getProperty("user.dir")+"/java4s_Props.properties";
+		    String path = System.getProperty("user.dir")+"/TimeScheduler.properties";
 		    pro.load(new FileInputStream(path));	   
 
 		    Constants.delay = pro.getProperty("delay");
 		    Constants.timetoquery = pro.getProperty("timetoquery");
-		    Constants.setFrom = pro.getProperty("setFrom");
-		    Constants.setPassword = pro.getProperty("setPassword");
-		    Constants.emailTO = pro.getProperty("emailTO");	  		   
+//		    Constants.setFrom = pro.getProperty("setFrom");
+//		    Constants.setPassword = pro.getProperty("setPassword");
+//		    Constants.emailTO = pro.getProperty("emailTO");	  		   
 
 		}
 		catch(Exception e)
